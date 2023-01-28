@@ -1,8 +1,37 @@
-const add_city_button = document.getElementById('"add-city"')
+function CloseInput() {
+    const close_input_button = document.getElementById('close_input')
+    close_input_button.addEventListener('click', (ev) => {
+        add_city.hidden = true
+    })
+}
 
-async function getInfo () {
+async function InputField() {
+
+
+    document.getElementById('search_button').addEventListener
+    ('click', (ev) => {
+        const input_field = document.getElementById('search').value
+        console.log(input_field)
+        ev.preventDefault()
+        const app = document.getElementById('app')
+        const clone = app.cloneNode(true)
+        GetInfo(input_field)
+
+    }
+)}
+
+async function AddCity() {
+    const add_city_button = document.getElementById("add-city")
+    add_city_button.addEventListener('click', () => {
+        const add_city = document.getElementById('add_city')
+        add_city.hidden = false
+        console.log(add_city)
+    })
+}
+const fetch_default_value = 'auto:ip'
+async function GetInfo(fetch_default_value) {
     try {
-        const all_info = await fetch('http://api.weatherapi.com/v1/forecast.json?key=df18fe1b848e46d88bb174944232701&q=auto:ip&days=6')
+        const all_info = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=df18fe1b848e46d88bb174944232701&q=${fetch_default_value}&days=6`)
         const {current, forecast, location} = await all_info.json()
         const {forecastday} = forecast
         console.log(current)
@@ -18,12 +47,12 @@ async function getInfo () {
         const humidity = document.getElementsByClassName('humidity__value')[0].innerText =
             `${current.humidity} %`
         const wind = document.getElementsByClassName('wind-speed__value')[0].innerText =
-            `${Math.round(current.wind_kph*1000/3600)} m/s`
+            `${Math.round(current.wind_kph * 1000 / 3600)} m/s`
         const temp_C = document.getElementsByClassName('temperature__value')[0].innerText = current.temp_c
 
-        const forecastDayFunction =  () => {
+        const forecastDayFunction = () => {
             const ul = document.getElementById('weather__forecast')
-            for (let i=1 ;i < forecastday.length; i++){
+            for (let i = 1; i < forecastday.length; i++) {
                 const li = document.createElement('li')
                 ul.append(li)
 
@@ -35,20 +64,16 @@ async function getInfo () {
                     <img src="assets/icons/clear-day.svg"/>
                     <span className="temperature"><span className="temperature__value">
                         ${forecastday[i].day.avgtemp_c}</span>&deg;C</span>`
-
-                console.log(forecastday[i])
             }
         }
         forecastDayFunction()
-        console.log(weather_icon)
-        console.log(city)
-        console.log(hPa)
-        console.log(humidity)
-        console.log(wind)
-        console.log(temp_C)
-}catch (err){
+
+    } catch (err) {
         console.log(err)
     }
 }
 
-getInfo()
+GetInfo(fetch_default_value)
+AddCity()
+CloseInput()
+InputField()
