@@ -15,7 +15,7 @@
   </div>
 </header>
 
-<section id="app" class="container">
+<sectapion id="app" class="container">
 
   <!-- Moduł wyszukiwarki - domyślnie ukryty -->
   <div class="module module__form" id="add_city" hidden>
@@ -34,8 +34,8 @@
      Poniższy kod możecie potraktować jako template do kolejnych modułów
      Możecie go sklonować używając metody cloneNode(true), i powstawiać odpowiednie wartości z aktualnego miasta.
   -->
-  <div class="module module__weather" >
-    <button class="btn btn--icon btn--close"><i class="material-icons">close</i></button>
+  <div id='weather' class="module module__weather" >
+    <button class="btn btn--icon btn--close close_container" id="close_container"><i class="material-icons">close</i></button>
 
     <div class="weather">
       <div class="weather__icon"><img src="assets/icons/partly-cloudy-day.svg"/></div>
@@ -62,7 +62,7 @@
   <div class="loading">
     <div class="dual-ring"></div>
   </div>
-</section>
+</sectapion>
 
 <script src="build/out.js"></script>
 <script src="js/app.js"></script>
