@@ -1,6 +1,7 @@
 
 const default_forecast = document.getElementById('app')
 const fetch_default_value = 'auto:ip'
+let value = true
 
 function CloseInput() {
     const close_input_button = document.getElementById('close_input')
@@ -19,9 +20,13 @@ async function InputField() {
         const weather = document.getElementById('weather')
         const clone = weather.cloneNode(true)
         GetInfo(input_field, clone)
+        CloseContainer(false, clone)
         const close_input_button  = document.getElementById("add_city")
         close_input_button.parentNode.insertBefore(clone, close_input_button.nextSibling)
         // weather.parentNode.insertBefore(clone, weather)
+
+
+        console.log("city")
         console.log(clone)
 
     }
@@ -45,12 +50,7 @@ async function GetInfo(fetch_default_value, default_forecast) {
         console.log(forecastday.length)
         console.log(location)
 
-        const CloseContainer = () => {
-            default_forecast.getElementById('close_container').addEventListener('click', () => {
-                const weather_container = document.getElementById('weather')
-                weather_container.hidden = true
-            })
-        }
+
         const city = default_forecast.getElementsByClassName('city__name')[0].innerText =
             location.name
         const weather_icon = default_forecast.getElementsByClassName('weather__icon')[0].src =
@@ -83,14 +83,22 @@ async function GetInfo(fetch_default_value, default_forecast) {
             }
         }
         forecastDayFunction()
-        CloseContainer()
+
 
     } catch (err) {
         console.log(err)
     }
 }
+const whole_page = document
+function CloseContainer (value, whole_page) {
+    document.getElementById('close_container').addEventListener('click', () => {
+        const weather_container = document.getElementById('weather')
+        weather_container.hidden = value
+    })
+}
 
 GetInfo(fetch_default_value, default_forecast)
+CloseContainer(value, whole_page)
 AddCity()
 CloseInput()
 InputField()
