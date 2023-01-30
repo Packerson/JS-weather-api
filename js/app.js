@@ -3,6 +3,10 @@ const default_forecast = document.getElementById('app')
 const fetch_default_value = 'auto:ip'
 let value = true
 
+
+/* function closing input fields */
+
+
 function CloseInput() {
     const close_input_button = document.getElementById('close_input')
     close_input_button.addEventListener('click', (ev) => {
@@ -10,7 +14,35 @@ function CloseInput() {
     })
 }
 
-async function InputField() {
+/* function showing input fields */
+
+async function AddCity() {
+    const add_city_button = document.getElementById("add-city")
+    add_city_button.addEventListener('click', () => {
+        const add_city = document.getElementById('add_city')
+        add_city.hidden = false
+        // add_city.hidden = !add_city.hidden;
+
+        // if (add_city.hidden) {
+        //
+        // }else {
+        //     add_city.hidden = true
+        // }
+
+    })
+}
+
+/* function closing main window with weather forecast */
+function CloseContainer (value, whole_page) {
+    document.getElementById('close_container').addEventListener('click', function () {
+        this.parentElement.remove();
+    })
+}
+
+/* function for looking for input city/value and showing.
+* clone weather container  */
+
+function InputField() {
 
     document.getElementById('search_button').addEventListener
     ('click', (ev) => {
@@ -18,6 +50,8 @@ async function InputField() {
         console.log(input_field)
         ev.preventDefault()
         const weather = document.getElementById('weather')
+
+        // zmienić cloneNode
         const clone = weather.cloneNode(true)
         GetInfo(input_field, clone)
         CloseContainer(false, clone)
@@ -25,21 +59,14 @@ async function InputField() {
         close_input_button.parentNode.insertBefore(clone, close_input_button.nextSibling)
         // weather.parentNode.insertBefore(clone, weather)
 
-
+        // CloseContainer(value, whole_page)
         console.log("city")
         console.log(clone)
 
     }
 )}
 
-async function AddCity() {
-    const add_city_button = document.getElementById("add-city")
-    add_city_button.addEventListener('click', () => {
-        const add_city = document.getElementById('add_city')
-        add_city.hidden = false
-
-    })
-}
+/* main function, fetch to weather api  */
 
 async function GetInfo(fetch_default_value, default_forecast) {
     try {
@@ -83,22 +110,17 @@ async function GetInfo(fetch_default_value, default_forecast) {
             }
         }
         forecastDayFunction()
-
+        CloseContainer(value, whole_page)
 
     } catch (err) {
         console.log(err)
     }
 }
 const whole_page = document
-function CloseContainer (value, whole_page) {
-    document.getElementById('close_container').addEventListener('click', () => {
-        const weather_container = document.getElementById('weather')
-        weather_container.hidden = value
-    })
-}
+
 
 GetInfo(fetch_default_value, default_forecast)
-CloseContainer(value, whole_page)
+
 AddCity()
 CloseInput()
 InputField()
