@@ -57,6 +57,8 @@ function InputField(node, child) {
     }
 )}
 
+
+
 /* main function, fetch to weather api  */
 
 async function GetInfo(fetch_default_value) {
@@ -66,7 +68,7 @@ async function GetInfo(fetch_default_value) {
         const {forecastday} = forecast
 
         console.log(current)
-        console.log(forecastday.length)
+        console.log(forecastday)
         console.log(location)
 
 
@@ -84,7 +86,7 @@ async function GetInfo(fetch_default_value) {
         const humidity = `${current.humidity} %`
         const wind = `${Math.round(current.wind_kph * 1000 / 3600)} m/s`
         const temp_C = current.temp_c
-
+        console.log(forecastday[0].day.condition.text)
 
         const div_input = document.getElementById('add_city')
 
@@ -95,7 +97,7 @@ async function GetInfo(fetch_default_value) {
                 <button class="btn btn--icon btn--close close_container" id="close_container"><i class="material-icons">close</i></button>
     
             <div class="weather">
-                <div class="weather__icon"><img src="${weather_icon}"/></div>
+                <div class="weather__icon"><img src="assets/icons/rain.svg"/></div>
     
             <div class="weather__info">
                 <div class="city">
@@ -109,6 +111,7 @@ async function GetInfo(fetch_default_value) {
                 <li><img src="assets/icons/humidity.svg"/>${humidity} <span class="humidity__value"></span></li>
                 <li><img src="assets/icons/wind-speed.svg"/>${wind} <span class="wind-speed__value"></span></li>
             </ul>
+            
     
             <ul class="weather__forecast" id="weather__forecast">
                     <li><span className="day">${day_array[0]}</span>
